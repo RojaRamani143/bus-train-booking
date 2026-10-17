@@ -1,11 +1,526 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TransitGo | Bus & Train Tickets</title><link rel="stylesheet" href="/static/style.css"></head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TransitGo | Your Journey, Your Vibe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
 <body>
-<header class="nav"><div class="brand">✦ Transit<span>Go</span></div><nav><a href="#search">Book Tickets</a><a href="#features">Why TransitGo</a><a href="#help">Help</a></nav><span class="nav-badge">✦ Travel made simple</span></header>
-<main><section class="hero"><div class="hero-inner"><div class="eyebrow">✦ YOUR NEXT JOURNEY STARTS HERE</div><h1>Go places.<br><em>Make memories.</em></h1><p>Discover effortless bus and train travel. Compare routes, find great fares, and book your next adventure in minutes.</p><div class="stats"><span>★ 4.9 Traveller rating</span><span>✓ Easy booking</span><span>♧ Secure experience</span></div></div><div class="art"><div class="art-circle"></div><div class="art-ticket"><span>✦ BOARDING PASS</span><strong>HYD → BLR</strong><small>YOUR ADVENTURE AWAITS</small><div>✦ ✦ ✦ ✦ ✦</div></div></div></section>
-<section class="search-wrap" id="search"><div class="search-card"><div class="tabs"><button class="tab active" data-mode="bus">🚌 &nbsp; Bus Tickets</button><button class="tab" data-mode="train">🚆 &nbsp; Train Tickets</button></div><form id="searchForm"><div class="fields"><label>FROM <select id="from" required><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Chennai</option><option>Vijayawada</option></select></label><button type="button" class="swap" id="swap" title="Swap cities">⇄</button><label>TO <select id="to" required><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Chennai</option><option>Vijayawada</option></select></label><label>TRAVEL DATE <input type="date" id="date" min="{{ today }}" value="{{ today }}" required></label><label>PASSENGERS <select id="passengers"><option value="1">1 Passenger</option><option value="2">2 Passengers</option><option value="3">3 Passengers</option><option value="4">4 Passengers</option><option value="5">5 Passengers</option><option value="6">6 Passengers</option></select></label></div><button class="primary" type="submit">Search journeys &nbsp; →</button></form></div></section>
-<section class="results container" id="results" hidden><div class="section-head"><div><span class="kicker">AVAILABLE JOURNEYS</span><h2 id="resultsTitle">Your travel options</h2></div><span class="pill" id="count"></span></div><div id="resultsList"></div></section>
-<section class="features container" id="features"><div class="section-head"><div><span class="kicker">THE TRANSITGO DIFFERENCE</span><h2>Travel better, every time.</h2></div></div><div class="feature-grid"><article><span>◈</span><h3>Simple search</h3><p>Find the right journey without the hassle.</p></article><article><span>✧</span><h3>Great value</h3><p>Compare fares and choose what fits your plans.</p></article><article><span>♡</span><h3>Made for you</h3><p>A clean, comfortable booking experience.</p></article></div></section><section class="help" id="help"><h2>Ready to explore somewhere new?</h2><p>Your next great story is only a ticket away.</p><a href="#search">Find your journey →</a></section></main>
-<footer>✦ TransitGo <span>Demo project for learning Flask, Docker & Jenkins. Not a real ticketing service.</span></footer>
-<dialog id="bookingDialog"><form id="bookingForm"><button type="button" class="close" id="closeDialog">×</button><span class="kicker">ALMOST THERE</span><h2>Complete your booking</h2><p id="bookingSummary"></p><label>Full name <input id="name" required minlength="2" placeholder="Enter your name"></label><label>Email address <input id="email" type="email" required placeholder="you@example.com"></label><p id="total"></p><button class="primary" type="submit">Confirm demo booking →</button><p class="small">Demo only — no payment or real ticket is issued.</p></form></dialog>
-<div id="toast" role="status" aria-live="polite"></div><script src="/static/script.js"></script></body></html>
+
+<!-- NAVIGATION -->
+
+<nav class="navbar">
+
+    <a href="#" class="logo">
+        🚆 Transit<span>Go</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#booking">Book Tickets</a>
+        <a href="#routes">Popular Routes</a>
+        <a href="#features">Why Us?</a>
+    </div>
+
+    <a href="#booking" class="nav-button">
+        Book Now ✨
+    </a>
+
+</nav>
+
+
+<!-- HERO SECTION -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            ✨ Travel more. Worry less.
+        </div>
+
+        <h1>
+            Your Next
+            <span>Adventure</span>
+            Starts Here!
+        </h1>
+
+        <p>
+            Catch buses, chase trains, collect memories.
+            Your journey deserves main-character energy! 💜
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#booking" class="primary-button">
+                Explore Tickets →
+            </a>
+
+            <a href="#routes" class="secondary-button">
+                🔥 Trending Routes
+            </a>
+
+        </div>
+
+        <div class="hero-stats">
+
+            <div>
+                <h3>500+</h3>
+                <p>Demo Routes</p>
+            </div>
+
+            <div>
+                <h3>24/7</h3>
+                <p>Travel Inspiration</p>
+            </div>
+
+            <div>
+                <h3>100%</h3>
+                <p>Good Vibes</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-visual">
+
+        <div class="travel-card bus-card">
+            🚌
+            <span>Road Trip Mode</span>
+        </div>
+
+        <div class="travel-circle">
+            🌍
+        </div>
+
+        <div class="travel-card train-card">
+            🚆
+            <span>Train Adventures</span>
+        </div>
+
+        <div class="floating-star star-one">✨</div>
+        <div class="floating-star star-two">💜</div>
+        <div class="floating-star star-three">🌈</div>
+
+    </div>
+
+</section>
+
+
+<!-- BOOKING SECTION -->
+
+<section class="booking-section" id="booking">
+
+    <div class="section-heading">
+
+        <span class="eyebrow">LET'S GET MOVING</span>
+
+        <h2>
+            Where are we
+            <span>going next?</span>
+        </h2>
+
+        <p>Find your next adventure in just a few clicks.</p>
+
+    </div>
+
+    <div class="booking-container">
+
+        <div class="booking-tabs">
+
+            <button
+                type="button"
+                class="tab active"
+                id="busTab"
+                onclick="selectMode('bus')">
+                🚌 Bus Tickets
+            </button>
+
+            <button
+                type="button"
+                class="tab"
+                id="trainTab"
+                onclick="selectMode('train')">
+                🚆 Train Tickets
+            </button>
+
+        </div>
+
+        <form id="searchForm">
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label for="source">📍 FROM</label>
+
+                    <input
+                        type="text"
+                        id="source"
+                        placeholder="Departure city"
+                        required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="destination">🎯 TO</label>
+
+                    <input
+                        type="text"
+                        id="destination"
+                        placeholder="Destination city"
+                        required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="date">📅 JOURNEY DATE</label>
+
+                    <input
+                        type="date"
+                        id="date"
+                        min="{{ today }}"
+                        required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="passengers">👥 PASSENGERS</label>
+
+                    <select id="passengers">
+
+                        <option value="1">1 Passenger</option>
+                        <option value="2">2 Passengers</option>
+                        <option value="3">3 Passengers</option>
+                        <option value="4">4 Passengers</option>
+                        <option value="5">5 Passengers</option>
+                        <option value="6">6 Passengers</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button type="submit" class="search-button">
+                🔍 Find My Ride →
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- SEARCH RESULTS -->
+
+<section class="results-section" id="resultsSection" hidden>
+
+    <div class="section-heading">
+
+        <span class="eyebrow">YOUR OPTIONS</span>
+
+        <h2>Pick Your <span>Perfect Ride</span></h2>
+
+        <p id="searchSummary"></p>
+
+    </div>
+
+    <div id="results" class="results-grid"></div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="features-section" id="features">
+
+    <div class="section-heading">
+
+        <span class="eyebrow">WHY TRANSITGO?</span>
+
+        <h2>
+            Travel Smart.
+            <span>Travel Happy.</span>
+        </h2>
+
+        <p>Everything you need for a stress-free journey.</p>
+
+    </div>
+
+    <div class="features-grid">
+
+        <div class="feature-card">
+
+            <div class="feature-icon pink">🚌</div>
+
+            <h3>Epic Bus Rides</h3>
+
+            <p>
+                Find comfortable buses and discover
+                exciting destinations.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="feature-icon purple">🚆</div>
+
+            <h3>Train Adventures</h3>
+
+            <p>
+                Explore scenic routes and plan
+                memorable train journeys.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="feature-icon blue">⚡</div>
+
+            <h3>Superfast Search</h3>
+
+            <p>
+                Compare sample routes, travel times,
+                and fares in seconds.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="feature-icon yellow">💜</div>
+
+            <h3>Made For You</h3>
+
+            <p>
+                A colorful, simple booking experience
+                designed for modern travelers.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- POPULAR ROUTES -->
+
+<section class="routes-section" id="routes">
+
+    <div class="section-heading">
+
+        <span class="eyebrow">TRENDING DESTINATIONS</span>
+
+        <h2>
+            Popular <span>Travel Routes</span>
+        </h2>
+
+        <p>Explore some of our favorite demo destinations.</p>
+
+    </div>
+
+    <div class="routes-grid">
+
+        <div class="route-card">
+
+            <div class="route-image route-one">
+                🌆
+            </div>
+
+            <div class="route-content">
+
+                <span class="route-tag">🔥 Popular</span>
+
+                <h3>Hyderabad → Bengaluru</h3>
+
+                <p>🚌 Bus Journey</p>
+
+                <div class="route-bottom">
+
+                    <strong>₹899</strong>
+
+                    <button onclick="quickSearch('Hyderabad','Bengaluru','bus')">
+                        Explore →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="route-card">
+
+            <div class="route-image route-two">
+                🏙️
+            </div>
+
+            <div class="route-content">
+
+                <span class="route-tag">✨ Trending</span>
+
+                <h3>Delhi → Mumbai</h3>
+
+                <p>🚆 Train Journey</p>
+
+                <div class="route-bottom">
+
+                    <strong>₹1299</strong>
+
+                    <button onclick="quickSearch('Delhi','Mumbai','train')">
+                        Explore →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="route-card">
+
+            <div class="route-image route-three">
+                🏖️
+            </div>
+
+            <div class="route-content">
+
+                <span class="route-tag">💖 Favorite</span>
+
+                <h3>Hyderabad → Goa</h3>
+
+                <p>🚌 Bus Journey</p>
+
+                <div class="route-bottom">
+
+                    <strong>₹1499</strong>
+
+                    <button onclick="quickSearch('Hyderabad','Goa','bus')">
+                        Explore →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CALL TO ACTION -->
+
+<section class="cta-section">
+
+    <div class="cta-content">
+
+        <h2>Ready For Your Next Adventure? 🌈</h2>
+
+        <p>
+            New places. New stories. New memories.
+            Your journey starts with TransitGo.
+        </p>
+
+        <a href="#booking" class="cta-button">
+            Let's Go! 🚀
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-logo">
+        🚆 Transit<span>Go</span>
+    </div>
+
+    <p>
+        Making every journey a little more magical. 💜
+    </p>
+
+    <p class="footer-note">
+        Demo travel-booking application — no real tickets are issued.
+    </p>
+
+    <div class="footer-bottom">
+        © 2026 TransitGo. Built with Flask, Docker & Jenkins.
+    </div>
+
+</footer>
+
+
+<!-- BOOKING MODAL -->
+
+<div class="modal-overlay" id="bookingModal" hidden>
+
+    <div class="modal-card">
+
+        <button
+            type="button"
+            class="close-modal"
+            onclick="closeModal()">
+            ✕
+        </button>
+
+        <h2>🎉 Almost There!</h2>
+
+        <p id="bookingDetails"></p>
+
+        <form id="bookingForm">
+
+            <input
+                type="text"
+                id="passengerName"
+                placeholder="Lead passenger's name"
+                required
+                maxlength="80">
+
+            <input
+                type="email"
+                id="passengerEmail"
+                placeholder="Email address"
+                required>
+
+            <button type="submit" class="search-button">
+                Confirm Demo Booking 💜
+            </button>
+
+        </form>
+
+        <div id="bookingConfirmation" hidden></div>
+
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
