@@ -1,0 +1,7 @@
+services:
+  transitgo:
+    build: .
+    container_name: transitgo-container
+    ports:
+      - "5002:5000"
+    restart: unless-stopped
